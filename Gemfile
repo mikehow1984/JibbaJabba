@@ -22,10 +22,14 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-#carrierwave for file uploading
+# carrierwave for file uploading
 gem 'carrierwave', '~> 0.11.2'
-#bootstrap-sass for bootstrap and sass, duh
+# bootstrap-sass for bootstrap and sass, duh
 gem 'bootstrap-sass', '~> 3.3.6'
+# Calculate user distances with geokit
+gem 'geokit', '~> 1.10.0'
+# Find user timezone
+gem 'timezone', '~> 1.0.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
