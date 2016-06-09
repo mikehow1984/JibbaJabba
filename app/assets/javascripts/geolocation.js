@@ -4,7 +4,7 @@ if (geoPosition.init()){
 
 
 function geoSuccess(p){
-	$.post('/usercoords', {lat:p.coords.latitude, long: p.coords.longitude);
+	$.post('/usercoords', {lat:p.coords.latitude, long: p.coords.longitude});
 }
 
 function geoError(){

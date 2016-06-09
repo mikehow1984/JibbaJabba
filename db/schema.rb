@@ -11,10 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160607152352) do
+ActiveRecord::Schema.define(version: 20160608213517) do
 
   create_table "posts", force: :cascade do |t|
-    t.string   "attachment"
+    t.string   "attach"
     t.text     "content"
     t.float    "coord_lat"
     t.float    "coord_long"
@@ -26,15 +26,14 @@ ActiveRecord::Schema.define(version: 20160607152352) do
   end
 
   create_table "topics", force: :cascade do |t|
-    t.string   "title"
-    t.string   "attachment"
+    t.text     "title"
+    t.string   "attach"
     t.text     "content"
     t.float    "coord_lat"
     t.float    "coord_long"
     t.integer  "unix_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "taglist"
   end
 
 end

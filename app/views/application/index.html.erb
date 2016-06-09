@@ -1,0 +1,7 @@
+<title>Topik!</title>
+	<%= form_tag topics_path, :method => :get do %>
+	<p>
+		<%= text_field_tag :query, params[:query] %> <%= submit_tag "Search Topics!" %>
+	</p>
+	<% end %>
+	

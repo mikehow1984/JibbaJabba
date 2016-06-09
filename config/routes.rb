@@ -56,5 +56,5 @@ Rails.application.routes.draw do
 
 	root "topics#index"
 
-	resources :projects
+	resources :topics
 end

@@ -30,6 +30,11 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'geokit', '~> 1.10.0'
 # Find user timezone
 gem 'timezone', '~> 1.0.0'
+# Search engine
+gem 'sunspot_rails'
+gem 'sunspot_solr'
+#image thumbnail generator
+gem 'mini_magick'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
