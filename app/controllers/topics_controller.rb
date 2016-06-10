@@ -2,12 +2,8 @@ class TopicsController < ApplicationController
 	helper FormatTimeHelper
 
 	def index
-		if !Topic.blank?
-			search = Topic.search do
-				keywords :query, :fields => [:title, :content, :post_content]
-			end
-		else
-			flash[:notice] = "No topics exist."
+		search = Sunspot.search Topic do
+			keywords :query, :fields => [:title, :content, :post_content_search]
 		end
 
 		@topics = search.results
@@ -20,8 +16,9 @@ class TopicsController < ApplicationController
 	def create 
 		@topic = Topic.new(topic_params)
 		@topic.unix_time = Time.now.to_i
-		@topic.coord_lat = @lat
-		@topic.coord_long = @lng
+		@lat_lng = cookies[:lat_lng].split("|")
+		@topic.coord_lat = @lat_lng[0]
+		@topic.coord_long = @lat_lng[1]
 
 		if @topic.save
 			flash[:notice] = "Topic has been created!"

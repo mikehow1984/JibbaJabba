@@ -1,3 +1,8 @@
+<% unless @lat_lng %>
+	<script>
+		getGeoLocation();
+	</script>
+<% end %>
 <h1>New Topik</h1>
 <%= form_for(@topic) do |f| %>
 	<p>
