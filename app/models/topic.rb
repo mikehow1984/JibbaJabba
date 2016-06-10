@@ -4,12 +4,19 @@ class Topic < ActiveRecord::Base
 	searchable do 
 		text (:title)
 		text (:content)
-		text (:post_content) {posts.content}
+		text (:post_content_search)
 
-		integer (:timestamp)
+		integer (:unix_time)
 
 		string :sort_title do
 			title.downcase.gsub(/^(an?|the)/, '')
 		end
 	end
+	
+	def post_content_search
+		self.posts.map{|post| post.content}
+	end
+		
 end
+
+

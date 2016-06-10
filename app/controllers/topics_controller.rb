@@ -1,17 +1,37 @@
 class TopicsController < ApplicationController
+	helper FormatTimeHelper
+
 	def index
+		if !Topic.blank?
+			search = Topic.search do
+				keywords :query, :fields => [:title, :content, :post_content]
+			end
+		else
+			flash[:notice] = "No topics exist."
+		end
+
+		@topics = search.results
 	end
 
 	def new
 		@topic = Topic.new
 	end
 
-	def search
-		@search = Topic.search do
-			keywords :query, :fields => [:title, :content, :post_content]
-		end
+	def create 
+		@topic = Topic.new(topic_params)
+		@topic.unix_time = Time.now.to_i
+		@topic.coord_lat = @lat
+		@topic.coord_long = @lng
 
-		@topics = @search.results
+		if @topic.save
+			flash[:notice] = "Topic has been created!"
+			redirect_to @topic
+		else
+		end
+	end
+
+	def search
+
 	end
 
 	def show 

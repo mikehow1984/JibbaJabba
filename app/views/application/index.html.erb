@@ -1,7 +1,15 @@
 <title>Topik!</title>
+
+	<%= link_to "Create New Topik", new_topic_path %>
+
 	<%= form_tag topics_path, :method => :get do %>
 	<p>
 		<%= text_field_tag :query, params[:query] %> <%= submit_tag "Search Topics!" %>
 	</p>
 	<% end %>
-	
+	<% for topik in @topics %>
+		<div class="result-wrapper">
+			<div><%= topik.title %></div>
+			<div><%= topik.posts.length %> posts</div>
+		</div>
+	<% end %>

@@ -22,5 +22,9 @@ module Topik
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+		Timezone::Lookup.config(:google) do |c|
+			c.api_key = 'AIzaSyDeKM74nqHTK7rW68Kqqe-1181AXosCifg'
+		end
   end
 end

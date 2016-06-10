@@ -1,0 +1,13 @@
+<h1>New Topik</h1>
+<%= form_for(@topic) do |f| %>
+	<p>
+		<%= f.label :title %><br>
+		<%= f.text_field :title, required: true %>
+	</p>
+
+	<p>
+		<%= f.label :content %><br>
+		<%= f.text_area :content, required: true %>
+	</p>
+	<%= f.submit "Create Topik!" %>
+<% end %>
