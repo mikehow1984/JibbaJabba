@@ -2,11 +2,11 @@ class TopicsController < ApplicationController
 	helper FormatTimeHelper
 
 	def index
-		search = Sunspot.search Topic do
-			keywords :query, :fields => [:title, :content, :post_content_search]
+		@search = Topic.search do
+			fulltext params[:query]
 		end
 
-		@topics = search.results
+		@topics = @search.results
 	end
 
 	def new
@@ -21,7 +21,7 @@ class TopicsController < ApplicationController
 		@topic.coord_long = @lat_lng[1]
 
 		if @topic.save
-			flash[:notice] = "Topic has been created!"
+			flash[:notice] = "Topic has been created! #{@topic.coord_lat}, #{@topic.coord_long}"
 			redirect_to @topic
 		else
 		end

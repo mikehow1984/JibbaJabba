@@ -10,6 +10,8 @@
 	<% for topik in @topics %>
 		<div class="result-wrapper">
 			<div><%= topik.title %></div>
+			<div><%= topik.content %></div>
 			<div><%= topik.posts.length %> posts</div>
+			<div>Posted: <%= format_time(topik.unix_time, topik.coord_lat, topik.coord_long) %></div>
 		</div>
 	<% end %>
