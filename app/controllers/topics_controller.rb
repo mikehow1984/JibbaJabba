@@ -2,11 +2,16 @@ class TopicsController < ApplicationController
 	helper FormatTimeHelper
 
 	def index
-		@search = Topic.search do
-			fulltext params[:query]
+		@topics = nil
+		unless params[:query].nil? || params[:query].strip.empty?
+			@search = Topic.search do
+				fulltext params[:query]
+			end
+			self.geoloc
+			@topics = @search.results
 		end
-
-		@topics = @search.results
+		
+		@topics
 	end
 
 	def new
@@ -16,7 +21,7 @@ class TopicsController < ApplicationController
 	def create 
 		@topic = Topic.new(topic_params)
 		@topic.unix_time = Time.now.to_i
-		@lat_lng = cookies[:lat_lng].split("|")
+		self.geoloc
 		@topic.coord_lat = @lat_lng[0]
 		@topic.coord_long = @lat_lng[1]
 
@@ -29,6 +34,13 @@ class TopicsController < ApplicationController
 
 	def search
 
+	end
+	
+	def geoloc	
+		@lat_lng = nil
+		unless cookies[:lat_lng].nil?
+			@lat_lng = cookies[:lat_lng].split("|")
+		end
 	end
 
 	def show 

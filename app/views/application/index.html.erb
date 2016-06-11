@@ -1,3 +1,9 @@
+<% unless @lat_lng %>
+	<script>
+		getGeoLocation();
+	</script>
+<% end %>
+
 <title>Topik!</title>
 
 	<%= link_to "Create New Topik", new_topic_path %>
@@ -7,11 +13,22 @@
 		<%= text_field_tag :query, params[:query] %> <%= submit_tag "Search Topics!" %>
 	</p>
 	<% end %>
-	<% for topik in @topics %>
-		<div class="result-wrapper">
-			<div><%= topik.title %></div>
-			<div><%= topik.content %></div>
-			<div><%= topik.posts.length %> posts</div>
-			<div>Posted: <%= format_time(topik.unix_time, topik.coord_lat, topik.coord_long) %></div>
-		</div>
+	
+	<% if @topics.nil? %>
+		Use the field above to search for interesting topics
+	<% elsif @topics.empty? %>
+		Sorry, I didn't find that. :(
+	<% else %>
+		<% for topik in @topics %>
+			<div class="result-wrapper">
+				<div><%= topik.title %></div>
+				<div><%= topik.content %></div>
+				<div><%= topik.posts.length %> posts</div>
+				<% if @lat_lng.nil? %>
+					<div>Posted <%= time_since(topik.unix_time) %> ago</div>
+				<% else %>
+					<div>Posted: <%= format_time(topik.unix_time, @lat_lng[0], @lat_lng[1]) %></div>
+				<% end %>
+			</div>
+		<% end %>
 	<% end %>
