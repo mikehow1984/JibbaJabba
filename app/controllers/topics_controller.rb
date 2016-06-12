@@ -24,7 +24,7 @@ class TopicsController < ApplicationController
 		self.geoloc
 		@topic.coord_lat = @lat_lng[0]
 		@topic.coord_long = @lat_lng[1]
-
+		
 		if @topic.save
 			flash[:notice] = "Topic has been created! #{@topic.coord_lat}, #{@topic.coord_long}"
 			redirect_to @topic
@@ -53,6 +53,6 @@ class TopicsController < ApplicationController
 	private
 
 	def topic_params
-		params.require(:topic).permit(:title, :content, :attach, :content, :coord_lat, :coord_long, :unix_time, :lat, :long)
+		params.require(:topic).permit(:title, :content, :attach, :thumb, :content, :coord_lat, :coord_long, :unix_time, :lat, :long)
 	end
 end

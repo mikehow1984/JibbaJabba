@@ -1,6 +1,8 @@
 class Topic < ActiveRecord::Base
 	has_many :posts, :dependent => :destroy
 	mount_uploader :attach, AttachUploader
+	validates :attach, file_size: { less_than_or_equal_to: 4.gigabytes }
+
 	searchable do 
 		text (:title)
 		text (:content)

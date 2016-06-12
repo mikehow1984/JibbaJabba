@@ -1,5 +1,6 @@
 <% unless defined?(@lat_lng) != nil %>
 	<script>
+		console.log(document.cookie);
 		if(document.cookie.indexOf('lat_lng=') == -1){
 			getGeoLocation();
 		}
@@ -25,6 +26,9 @@
 			<div class="result-wrapper">
 				<div><%= topik.title %></div>
 				<div><%= topik.content %></div>
+				<% unless topik.attach.file.nil? %>
+					<div><%= link_to image_tag(topik.attach.url(:thumb).to_s), topik.attach.url %></div>
+				<% end %>
 				<div><%= topik.posts.length %> posts</div>
 				<% if @lat_lng.nil? %>
 					<div>Posted <%= time_since(topik.unix_time) %> ago</div>

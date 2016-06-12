@@ -72,6 +72,9 @@ GEM
     diff-lcs (1.2.5)
     erubis (2.7.0)
     execjs (2.7.0)
+    file_validators (2.1.0)
+      activemodel (>= 3.0)
+      mime-types (>= 1.0)
     geokit (1.10.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
@@ -200,6 +203,7 @@ DEPENDENCIES
   capybara (~> 2.4)
   carrierwave (~> 0.11.2)
   coffee-rails (~> 4.1.0)
+  file_validators
   geokit (~> 1.10.0)
   jbuilder (~> 2.0)
   jquery-rails

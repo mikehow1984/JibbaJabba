@@ -35,6 +35,8 @@ gem 'sunspot_rails'
 gem 'sunspot_solr'
 #image thumbnail generator
 gem 'mini_magick'
+#file upload size limiter
+gem 'file_validators'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

@@ -1,0 +1,18 @@
+<% unless defined?(@lat_lng) != nil %>
+	<script>
+		console.log(document.cookie);
+		if(document.cookie.indexOf('lat_lng=') == -1){
+			getGeoLocation();
+		}
+	</script>
+<% end %>
+<h1>New Post</h1>
+<%= form_for(@post) do |f| %>
+	<p>
+		<%= f.label :content %><br>
+		<%= f.text_area :content, required: true %>
+		<%= f.label :attach %>
+		<%= f.file_field :attach %>
+	</p>
+	<%= f.submit "Create Post" %>
+<% end %>

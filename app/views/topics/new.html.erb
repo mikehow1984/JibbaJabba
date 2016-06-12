@@ -16,6 +16,8 @@
 	<p>
 		<%= f.label :content %><br>
 		<%= f.text_area :content, required: true %>
+		<%= f.label "4MB file limit"  %>
+		<%= f.file_field :attach %>
 	</p>
 	<%= f.submit "Create Topik!" %>
 <% end %>
