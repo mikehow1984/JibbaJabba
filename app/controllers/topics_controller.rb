@@ -3,11 +3,11 @@ class TopicsController < ApplicationController
 
 	def index
 		@topics = nil
-		unless params[:query].nil? || params[:query].strip.empty?
+		unless params[:query].nil? || params[:query].strip.empty?	
+			self.geoloc
 			@search = Topic.search do
 				fulltext params[:query]
 			end
-			self.geoloc
 			@topics = @search.results
 		end
 		
@@ -37,7 +37,9 @@ class TopicsController < ApplicationController
 	end
 	
 	def geoloc	
-		@lat_lng = nil
+		if defined?(@lat_lng) == nil
+			@lat_lng = nil
+		end
 		unless cookies[:lat_lng].nil?
 			@lat_lng = cookies[:lat_lng].split("|")
 		end
@@ -47,10 +49,6 @@ class TopicsController < ApplicationController
 		@topic = Topic.find(params[:id])
 	end
 	
-	def usercoords
-		@lat = params[:lat].to_f
-		@lng = params[:long].to_f
-	end
 
 	private
 

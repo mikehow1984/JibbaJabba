@@ -1,6 +1,9 @@
-<% unless @lat_lng %>
+<% unless defined?(@lat_lng) != nil %>
 	<script>
-		getGeoLocation();
+		console.log(document.cookie);
+		if(document.cookie.indexOf('lat_lng=') == -1){
+			getGeoLocation();
+		}
 	</script>
 <% end %>
 <h1>New Topik</h1>
