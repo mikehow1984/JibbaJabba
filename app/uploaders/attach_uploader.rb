@@ -4,9 +4,11 @@ class AttachUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
-  # include CarrierWave::MiniMagick
+  include CarrierWave::MiniMagick
+  include CarrierWave::MimeTypes
+	include VideoThumbnailer
 
-  # Choose what kind of storage to use for this uploader:
+	# Choose what kind of storage to use for this uploader:
   storage :file
   # storage :fog
 
@@ -30,10 +32,20 @@ class AttachUploader < CarrierWave::Uploader::Base
   # def scale(width, height)
   #   # do something
   # end
-	include CarrierWave::MiniMagick
 
 	version :thumb do
-		process resize_to_fill: [150, 150]
+		process resize_to_fill: [150, 150], :if => :image?
+		process generate_thumb: [{file_extension: 'png', quality: 10, size: "150x150"}], :if => :webm?
+		def full_filename for_file
+			if File.extname(for_file) == '.webm'
+				png_name for_file, version_name, "png"
+			else
+				filetype = File.extname(for_file)
+				filetype[0] = ''
+				png_name for_file, version_name, filetype
+			end
+		end
+		process :set_content_type, :if => :webm?
 	end
 
   # Create different versions of your uploaded files:
@@ -54,5 +66,25 @@ class AttachUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
+	
 
+	
+	def png_name for_file, version_name, format
+		p %Q{#{version_name}_#{for_file.chomp(File.extname(for_file))}.#{format}}
+		%Q{#{version_name}_#{for_file.chomp(File.extname(for_file))}.#{format}}
+	end
+
+	protected
+		def image?(new_file)
+			p "image detected"
+			p new_file.content_type.start_with? 'image'
+			new_file.content_type.start_with? 'image'
+		end
+
+		def webm?(new_file)
+			p "video detected"
+			p "If this a webm? #{new_file.content_type.include? 'webm'}"
+			new_file.content_type.include? 'webm'
+		end
 end
+

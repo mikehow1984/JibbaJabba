@@ -37,6 +37,9 @@ gem 'sunspot_solr'
 gem 'mini_magick'
 #file upload size limiter
 gem 'file_validators'
+#video thumbnailing
+gem 'carrierwave-video-thumbnailer'
+gem 'video_thumbnailer'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
