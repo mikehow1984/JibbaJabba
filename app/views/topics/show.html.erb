@@ -1,5 +1,6 @@
 <div class='OG-post-container'>
 	<div id='topic-title'><%= @topic.title =%></div>
+	<%= link_to "Post in this Topik", new_topic_post_path(@topic) %>
 	<div><%= @topic.content %></div>
 	<% unless @topic.attach.file.nil? %>
 		<div><%= link_to image_tag(@topic.attach.url(:thumb).to_s), @topic.attach.url %></div>
@@ -7,7 +8,7 @@
 	<div>Posted: <%= format_time(@topic.unix_time, @topic.coord_lat, @topic.coord_long) %></div>
 </div>
 
-<% for post in @topic.posts %>
+<% for post in Post.where(content: "what") %>
 	<div class='post-container'>
 		<div><%= post.content %></div>
 		<% unless post.attach.file.nil? %>
@@ -15,5 +16,7 @@
 		<% end %>
 		<div>Posted: <%= format_time(post.unix_time, post.coord_lat, post.coord_long) %></div>
 	</div>
+
+	<%= link_to "Post in this Topik", new_topic_post_path(@topic) %>
 <% end %>
 

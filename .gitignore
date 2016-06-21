@@ -18,3 +18,8 @@
 
 #ignore uploaded files
 /public/uploads
+
+#ignore swp files
+*~
+*.swp
+*.swo

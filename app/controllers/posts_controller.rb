@@ -9,17 +9,18 @@ class PostsController < ApplicationController
 	end
 
 	def create 
-		@post = Post.new(topic_params)
+		@post = Post.new(post_params)
 		@post.unix_time = Time.now.to_i
+		@post.topic = Topic.find(params[:topic_id])
 		self.geoloc
 		@post.coord_lat = @lat_lng[0]
 		@post.coord_long = @lat_lng[1]
 
-
 		if @post.save
 			flash[:notice] = "Post has been created!"
-			redirect_to Topic.find(params[:topic_id])
+			redirect_to Topic.find(params[:id])
 		else
+			render :action => 'new'
 		end
 	end
 
@@ -38,6 +39,6 @@ class PostsController < ApplicationController
 	private
 
 	def post_params
-		params.require(:post).permit(:title, :content, :attach, :thumb, :content, :coord_lat, :coord_long, :unix_time, :lat, :long)
+		params.require(:post).permit(:title, :content, :attach, :thumb, :coord_lat, :topic, :coord_long, :unix_time, :lat, :long)
 	end
 end

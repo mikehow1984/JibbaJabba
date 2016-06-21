@@ -6,13 +6,14 @@
 		}
 	</script>
 <% end %>
-<h1>New Post</h1>
-<%= form_for(@post) do |f| %>
+<h1>New post</h1>
+<%= puts @post %>
+<%= form_for @post do |f| %>
 	<p>
 		<%= f.label :content %><br>
 		<%= f.text_area :content, required: true %>
-		<%= f.label :attach %>
+		<%= f.label "4MB file limit"  %>
 		<%= f.file_field :attach %>
 	</p>
-	<%= f.submit "Create Post" %>
+	<%= f.submit "Create post!" %>
 <% end %>

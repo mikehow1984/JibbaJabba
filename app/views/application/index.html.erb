@@ -24,7 +24,7 @@
 	<% else %>
 		<% for topik in @topics %>
 			<div class="result-wrapper">
-				<div><%= topik.title %></div>
+				<div><%= link_to topik.title, topik %></div>
 				<div><%= topik.content %></div>
 				<% unless topik.attach.file.nil? %>
 					<div><%= link_to image_tag(topik.attach.url(:thumb).to_s), topik.attach.url %></div>

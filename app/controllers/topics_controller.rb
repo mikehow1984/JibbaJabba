@@ -1,6 +1,6 @@
 class TopicsController < ApplicationController
 	helper FormatTimeHelper
-
+	
 	def index
 		@topics = nil
 		unless params[:query].nil? || params[:query].strip.empty?	
@@ -53,6 +53,6 @@ class TopicsController < ApplicationController
 	private
 
 	def topic_params
-		params.require(:topic).permit(:title, :content, :attach, :thumb, :content, :coord_lat, :coord_long, :unix_time, :lat, :long)
+		params.require(:topic).permit(:title, :content, :attach, :thumb, :coord_lat, :coord_long, :unix_time, :lat, :long)
 	end
 end
