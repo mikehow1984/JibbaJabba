@@ -6,7 +6,11 @@ class TopicsController < ApplicationController
 		unless params[:query].nil? || params[:query].strip.empty?	
 			self.geoloc
 			@search = Topic.search do
-				fulltext params[:query]
+				any do
+					fulltext(params[:query], :fields => [:title])	
+					fulltext(params[:query], :fields => [:content])
+					fulltext(params[:query], :fields => [:post_content])
+				end
 			end
 			@topics = @search.results
 		end

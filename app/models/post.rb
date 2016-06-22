@@ -3,4 +3,9 @@ class Post < ActiveRecord::Base
 
 	mount_uploader :attach, AttachUploader
 	validates :attach, file_size: { less_than_or_equal_to: 4.gigabytes }
+
+	searchable do
+		text (:content)
+		integer (:topic_id)
+	end
 end

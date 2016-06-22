@@ -10,10 +10,10 @@ class Topic < ActiveRecord::Base
 	searchable do 
 		text (:title)
 		text (:content)
-		text (:post_content_search)
+		join(:content, :prefix => 'post', :target => Post, :type => :text, :join => { :from => :topic_id, :to => :id })
 
 		integer (:unix_time)
-
+		integer (:id)
 		string :sort_title do
 			title.downcase.gsub(/^(an?|the)/, '')
 		end
