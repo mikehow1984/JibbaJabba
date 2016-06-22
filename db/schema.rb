@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160621022534) do
+ActiveRecord::Schema.define(version: 20160621224751) do
 
   create_table "posts", force: :cascade do |t|
     t.string   "attach"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20160621022534) do
     t.string   "ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "topic"
+    t.integer  "topic_id"
     t.string   "thumb"
   end
 
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20160621022534) do
     t.float    "coord_lat"
     t.float    "coord_long"
     t.integer  "unix_time"
+    t.string   "ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "thumb"

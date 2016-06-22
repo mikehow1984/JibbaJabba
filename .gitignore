@@ -20,6 +20,16 @@
 /public/uploads
 
 #ignore swp files
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
 *~
-*.swp
-*.swo
+#solr
+solr/data
+solr/test
+solr/development
+solr/default/data
+/log/*.log.lck
+solr/pids
