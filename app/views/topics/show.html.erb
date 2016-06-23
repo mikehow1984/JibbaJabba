@@ -14,9 +14,17 @@
 		<% unless post.attach.file.nil? %>
 			<div><%= link_to image_tag(post.attach.url(:thumb).to_s), post.attach.url %></div>
 		<% end %>
-		<div>Posted: <%= format_time(post.unix_time, post.coord_lat, post.coord_long) %></div>
+		<% coords = cookies[:lat_lng].split("|") %>
+		<% if post.unix_time != nil && coords[0] != nil && coords[1] != nil %>
+			<div>Posted: <%= format_time(post.unix_time, coords[0], coords[1]) %></div>
+		<%elsif post.unix_time != nil %>
+			<div> Posted <%= time_since(post.unix_time) %> ago</div>
+		<% else %>
+			<div>This user has no sense of time or place</div>
+		<% end %>
 	</div>
 
-	<%= link_to "Post in this Topik", new_topic_post_path(@topic, @post) %>
 <% end %>
+<%= link_to "Post in this Topik", new_topic_post_path(@topic, @post) %>
+
 

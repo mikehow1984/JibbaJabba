@@ -1,5 +1,7 @@
 class Topic < ActiveRecord::Base
 	has_many :posts, :dependent => :destroy
+	accepts_nested_attributes_for :posts
+
 	mount_uploader :attach, AttachUploader
 	validates :attach, file_size: { less_than_or_equal_to: 4.gigabytes }
 	validates_presence_of :attach
@@ -10,7 +12,9 @@ class Topic < ActiveRecord::Base
 	searchable do 
 		text (:title)
 		text (:content)
-		join(:content, :prefix => 'post', :target => Post, :type => :text, :join => { :from => :topic_id, :to => :id })
+		text (:posts) do 
+			posts.map(&:content).compact.join(" ")
+		end
 
 		integer (:unix_time)
 		integer (:id)
@@ -19,10 +23,6 @@ class Topic < ActiveRecord::Base
 		end
 	end
 	
-	def post_content_search
-		self.posts.map{|post| post.content}
-	end
-		
 end
 
 

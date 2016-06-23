@@ -5,11 +5,11 @@ class TopicsController < ApplicationController
 		@topics = nil
 		unless params[:query].nil? || params[:query].strip.empty?	
 			self.geoloc
-			@search = Topic.search do
+			@search = Sunspot.search Topic do
 				any do
 					fulltext(params[:query], :fields => [:title])	
 					fulltext(params[:query], :fields => [:content])
-					fulltext(params[:query], :fields => [:post_content])
+					fulltext(params[:query], :fields => [:posts])
 				end
 			end
 			@topics = @search.results
@@ -51,12 +51,13 @@ class TopicsController < ApplicationController
 
 	def show 
 		@topic = Topic.find(params[:id])
+		@post = Post.new
 	end
 	
 
 	private
 
 	def topic_params
-		params.require(:topic).permit(:title, :content, :attach, :thumb, :coord_lat, :coord_long, :unix_time, :lat, :long)
+		params.require(:topic).permit(:title, :content, :attach, :thumb, :coord_lat, :coord_long, :unix_time, :lat, :long, posts_attributes: [:content])
 	end
 end

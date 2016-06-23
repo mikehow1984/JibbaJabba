@@ -2,12 +2,15 @@ require 'date'
 
 module FormatTimeHelper
 	def format_time(unixtime, lat, long)
-		tz = Timezone.lookup(lat, long)
-		Time.at(unixtime).in_time_zone(tz.name).strftime("%B %e, %Y at %I:%M %p")
+		if unixtime != nil && lat != nil && long != nil		
+			tz = Timezone.lookup(lat, long)
+			Time.at(unixtime).in_time_zone(tz.name).strftime("%B %e, %Y at %I:%M %p")
+		else
+			"Unable to find time or timezone."
+		end
 	end
 
 	def time_since(unixtime)
-		time_posted = Time.at(unixtime).to_datetime
 		time_ago_in_words(Time.now + unixtime - Time.now.to_i, include_seconds: true)
 	end
 end
