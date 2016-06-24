@@ -1,6 +1,7 @@
 class TopicsController < ApplicationController
 	helper FormatTimeHelper
-	
+	helper GeoDistanceHelper
+
 	def index
 		@topics = nil
 		unless params[:query].nil? || params[:query].strip.empty?	
@@ -26,9 +27,15 @@ class TopicsController < ApplicationController
 		@topic = Topic.new(topic_params)
 		@topic.unix_time = Time.now.to_i
 		self.geoloc
-		@topic.coord_lat = @lat_lng[0]
-		@topic.coord_long = @lat_lng[1]
-		
+		unless @latlng.nil?
+			@topic.coord_lat = @lat_lng[0]
+			@topic.coord_long = @lat_lng[1]
+		end
+		if request.remote_ip == '127.0.0.1'
+			@post.ip = rand_ip_address		
+		else
+			@post.ip = request.remote_ip
+		end
 		if @topic.save
 			flash[:notice] = "Topic has been created! #{@topic.coord_lat}, #{@topic.coord_long}"
 			redirect_to @topic
@@ -56,8 +63,12 @@ class TopicsController < ApplicationController
 	
 
 	private
-
+	def rand_ip_address
+		r = Random.new
+		ip_addrs = ['123.45.67.89', '165.23.54.76', '69.213.23.54', '133.65.23.76', '111.23.64.2']
+		ip_addrs[r.rand(ip_addrs.length)]
+	end
 	def topic_params
-		params.require(:topic).permit(:title, :content, :attach, :thumb, :coord_lat, :coord_long, :unix_time, :lat, :long, posts_attributes: [:content])
+		params.require(:topic).permit(:title, :content, :attach, :thumb, :coord_lat, :coord_long, :unix_time, :lat, :long, :ip, posts_attributes: [:content])
 	end
 end

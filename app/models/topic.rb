@@ -21,8 +21,7 @@ class Topic < ActiveRecord::Base
 		string :sort_title do
 			title.downcase.gsub(/^(an?|the)/, '')
 		end
-	end
-	
+	end	
 end
 
 
