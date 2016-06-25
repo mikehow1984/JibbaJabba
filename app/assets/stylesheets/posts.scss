@@ -51,3 +51,10 @@ body{
 	bottom: 18px;
 	right: 1vw;
 }
+
+@media(min-width: 768px){
+	.post-topic{
+		width: 50%;
+		margin: 1vh auto;
+	}
+}

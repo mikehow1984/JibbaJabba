@@ -1,6 +1,7 @@
 class TopicsController < ApplicationController
 	helper FormatTimeHelper
 	helper GeoDistanceHelper
+	helper QuotePostHelper
 
 	def index
 		@topics = nil
@@ -68,6 +69,7 @@ class TopicsController < ApplicationController
 		ip_addrs = ['123.45.67.89', '165.23.54.76', '69.213.23.54', '133.65.23.76', '111.23.64.2']
 		ip_addrs[r.rand(ip_addrs.length)]
 	end
+
 	def topic_params
 		params.require(:topic).permit(:title, :content, :attach, :thumb, :coord_lat, :coord_long, :unix_time, :lat, :long, :ip, posts_attributes: [:content])
 	end
