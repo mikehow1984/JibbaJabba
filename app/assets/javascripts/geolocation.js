@@ -6,7 +6,6 @@ function getGeoLocation(){
 			setGeoCookie,
 			geoError,
 			{
-				timeout: 1000,
 				enableHighAccuracy: true
 			}
 		);	

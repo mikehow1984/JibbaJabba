@@ -1,40 +1,53 @@
 <%= render "geo" %>
-<div class='OG-post-container'>
+<div class='OG-post-container post-topic col-xs-12 col-sm-6'>
 	<div id='topic-title'><%= @topic.title =%></div>
 	<!--<%= link_to "Post in this Topik", new_topic_post_path(@topic, @post) %>-->
-	<div><%= @topic.content %></div>
+	
 	<% unless @topic.attach.file.nil? %>
-		<div><%= link_to image_tag(@topic.attach.url(:thumb).to_s), @topic.attach.url %></div>
+		<div class="post-thumb"><%= link_to image_tag(@topic.attach.url(:thumb).to_s), @topic.attach.url %></div>
 	<% end %>
-	<div>Posted: <%= format_time(@topic.unix_time, @topic.coord_lat, @topic.coord_long) %></div>
+	<div class="post-content"><%= @topic.content %></div>
+
+	<div class="post-time">Posted: <%= format_time(@topic.unix_time, @topic.coord_lat, @topic.coord_long) %></div>
+
+	<% unless @topic.ip.nil? %>
+		<% if @topic.ip == request.remote_ip %>
+			<div>This is YOU.</div>
+		<% else %>
+			<% unless coords.nil? || post.coord_lat.nil? || post.coord_long.nil? %>
+				<div class="post-distance"> This poster is <%= geo_distance(coords[0].to_f, coords[1].to_f, @topic.coord_lat, @topic.coord_long, 'mi') %> away from you.</div>
+			<% end %>	
+		<% end %>
+	<% end %>
 </div>
 
 <% for post in @topic.posts %>
-	<div class='post-container'>
+	<div class='post-container post-topic col-xs-12 col-sm-6'>
 		
-		<div><%= post.content %></div>
 		<% unless post.attach.file.nil? %>
-			<div><%= link_to image_tag(post.attach.url(:thumb).to_s), post.attach.url %></div>
+			<div class="post-thumb"><%= link_to image_tag(post.attach.url(:thumb).to_s), post.attach.url %></div>
 		<% end %>
+		<div class="post-content"><%= post.content %></div>	
 		
 		<% if cookies().key?("lat_lng") %>
 			<% coords = cookies[:lat_lng].split("|") %>
 		<% end %>
 		
-		<% if post.unix_time != nil && !coords.nil? %>
-			<div>Posted: <%= format_time(post.unix_time, coords[0], coords[1]) %></div>
-		<%elsif post.unix_time != nil %>
-			<div> Posted <%= time_since(post.unix_time) %> ago</div>
-		<% else %>
-			<div>This user has no sense of time or place</div>
-		<% end %>
-		
+		<div class="post-time">
+			<% if post.unix_time != nil && !coords.nil? %>
+				Posted: <%= format_time(post.unix_time, coords[0], coords[1]) %>
+			<%elsif post.unix_time != nil %>
+				Posted <%= time_since(post.unix_time) %> ago
+			<% else %>
+				This user has no sense of time or place
+			<% end %>
+		</div>
 		<% unless post.ip.nil? %>
 			<% if post.ip == request.remote_ip %>
 				<div>This is YOU.</div>
 			<% else %>
 				<% unless coords.nil? || post.coord_lat.nil? || post.coord_long.nil? %>
-					<div id="post-distance"> This poster is <%= geo_distance(coords[0].to_f, coords[1].to_f, post.coord_lat, post.coord_long, 'mi') %> away from you.</div>
+					<div class="post-distance"> This poster is <%= geo_distance(coords[0].to_f, coords[1].to_f, post.coord_lat, post.coord_long, 'mi') %> away from you.</div>
 				<% end %>	
 			<% end %>
 		<% end %>
