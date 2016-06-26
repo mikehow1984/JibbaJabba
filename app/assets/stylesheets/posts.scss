@@ -9,6 +9,7 @@ $main-font: 'Open Sans', sans-serif;
 $background-color: #7A218A;
 $post-color: #911A2A;
 $topic-color: #F02B45;
+$mobile-font-size: 30px;
 
 body{
 	font: 100% $main-font;
@@ -16,6 +17,7 @@ body{
 }
 
 .post-topic{
+	width: 50%;
 	border: 1px solid #000;
 	height: auto;
 	margin: 1vh;
@@ -52,9 +54,14 @@ body{
 	right: 1vw;
 }
 
-@media(min-width: 768px){
+.quote{
+	color: #F0950B;
+	font-style: italic;
+}
+@media(max-width: 768px){
 	.post-topic{
-		width: 50%;
+		width: 100%;
 		margin: 1vh auto;
+		font-size: $mobile-font-size;
 	}
 }
