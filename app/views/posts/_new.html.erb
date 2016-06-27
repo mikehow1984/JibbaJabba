@@ -10,7 +10,7 @@
 <%= form_for([@topic, @post]) do |f| %>
 	<p>
 		<%= f.label :content %><br>
-		<%= f.text_area :content, required: true %>
+		<%= f.text_area :content, :id => 'post-content-form', required: true %>
 		<%= f.label "4MB file limit"  %>
 		<%= f.file_field :attach %>
 	</p>

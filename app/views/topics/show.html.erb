@@ -1,53 +1,17 @@
 <head><%= render "geo" %></head>
 <body>
-	<div class='OG-post-container post-topic' id="TopicStarter">
-		<div id='topic-title'><%= @topic.title =%></div>
+
+<div id='topic-title'><%= @topic.title =%></div>
+<div class='OG-post-container post-topic' id="TopicStarter">
 		<!--<%= link_to "Post in this Topik", new_topic_post_path(@topic, @post) %>-->
-		
-		<% unless @topic.attach.file.nil? %>
-			<div class="post-thumb"><%= link_to image_tag(@topic.attach.url(:thumb).to_s), @topic.attach.url %></div>
-		<% end %>
-		<div class="post-content">	
-			<% text = post_linkifier(@topic.content) %>
-			<% text.each do |piece| %>
-				<% if (piece =~ /<a href='#\d+'>@\d+<\/a>/).nil? && (piece =~ /<div class='quote'>/).nil? && (piece =~ /<\/div>/).nil? %>
-					<%= piece %>
-				<% else %>
-					<%= piece.html_safe %>
-				<% end %>
+		<div class="post-thumb">
+			<% unless @topic.attach.file.nil? %>
+				<%= link_to image_tag(@topic.attach.url(:thumb).to_s), @topic.attach.url %>
 			<% end %>
 		</div>
-		<% unless @topic.ip.nil? %>
-			<% if @topic.ip == request.remote_ip %>
-				<div>This is YOU.</div>
-			<% else %>
-				<% unless coords.nil? || post.coord_lat.nil? || post.coord_long.nil? %>
-					<div id="post-distance"> This poster is <%= geo_distance(coords[0].to_f, coords[1].to_f, @topic.coord_lat, @topic.coord_long, 'mi') %> away from you.</div>
-				<% end %>	
-			<% end %>
-		<% end %>
-
-		<div class="post-time">Posted: <%= format_time(@topic.unix_time, @topic.coord_lat, @topic.coord_long) %></div>
-
-		<% unless @topic.ip.nil? %>
-			<% if @topic.ip == request.remote_ip %>
-				<div>This is YOU.</div>
-			<% else %>
-				<% unless coords.nil? || post.coord_lat.nil? || post.coord_long.nil? %>
-					<div class="post-distance"> This poster is <%= geo_distance(coords[0].to_f, coords[1].to_f, @topic.coord_lat, @topic.coord_long, 'mi') %> away from you.</div>
-				<% end %>	
-			<% end %>
-		<% end %>
-	</div>
-
-	<% for post in @topic.posts %>
-		<div class='post-container post-topic' id='<%= post.id.to_s %>'>
-			
-			<% unless post.attach.file.nil? %>
-				<div class="post-thumb"><%= link_to image_tag(post.attach.url(:thumb).to_s), post.attach.url %></div>
-			<% end %>
-			<div class="post-content">
-				<% text = post_linkifier(post.content) %>
+		<div class="right-post-container">
+			<div class="post-content">	
+				<% text = post_linkifier(@topic.content) %>
 				<% text.each do |piece| %>
 					<% if (piece =~ /<a href='#\d+'>@\d+<\/a>/).nil? && (piece =~ /<div class='quote'>/).nil? && (piece =~ /<\/div>/).nil? %>
 						<%= piece %>
@@ -55,33 +19,78 @@
 						<%= piece.html_safe %>
 					<% end %>
 				<% end %>
-			
-			</div>	
-			
-			<% if cookies().key?("lat_lng") %>
-				<% coords = cookies[:lat_lng].split("|") %>
-			<% end %>
-			
-			<div class="post-time">
-				<% if post.unix_time != nil && !coords.nil? %>
-					Posted: <%= format_time(post.unix_time, coords[0], coords[1]) %>
-				<%elsif post.unix_time != nil %>
-					Posted <%= time_since(post.unix_time) %> ago
-				<% else %>
-					This user has no sense of time or place
-				<% end %>
 			</div>
-			<% unless post.ip.nil? %>
-				<% if post.ip == request.remote_ip %>
+			<% unless @topic.ip.nil? %>
+				<% if @topic.ip == request.remote_ip %>
 					<div>This is YOU.</div>
 				<% else %>
 					<% unless coords.nil? || post.coord_lat.nil? || post.coord_long.nil? %>
-						<div class="post-distance"> This poster is <%= geo_distance(coords[0].to_f, coords[1].to_f, post.coord_lat, post.coord_long, 'mi') %> away from you.</div>
+						<div id="post-distance"> Posting from <%= geo_distance(coords[0].to_f, coords[1].to_f, @topic.coord_lat, @topic.coord_long, 'mi') %> away</div>
 					<% end %>	
 				<% end %>
 			<% end %>
-		</div>
 
+			<div class="post-time">Posted: <%= format_time(@topic.unix_time, @topic.coord_lat, @topic.coord_long) %></div>
+
+			<% unless @topic.ip.nil? %>
+				<% if @topic.ip == request.remote_ip %>
+					<div>This is YOU.</div>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+
+
+	<% for post in @topic.posts %>
+		<div class='post-container post-topic' id='<%= post.id.to_s %>'>
+		<div class="post-wrapper">	
+			<div class="post-thumb">
+			<% unless post.attach.file.nil? %>
+				<%= link_to image_tag(post.attach.url(:thumb).to_s), post.attach.url %>
+			<% end %>
+			</div>
+
+			<div class="right-post-container">
+				<div class="post-id" id="quote<%= post.id %>">
+					<a href="#post-content-form">Poster No. <%= post.id %></a>
+				</div>
+				<div class="post-content" id= 'post-text-<%= post.id.to_s %>'>
+					<% text = post_linkifier(post.content) %>
+					<% text.each do |piece| %>
+						<% if (piece =~ /<a href='#\d+'>@\d+<\/a>/).nil? && (piece =~ /<div class='quote'>/).nil? && (piece =~ /<\/div>/).nil? %>
+							<%= piece %>
+						<% else %>
+							<%= piece.html_safe %>
+						<% end %>
+					<% end %>
+				
+				</div>	
+				
+				<% if cookies().key?("lat_lng") %>
+					<% coords = cookies[:lat_lng].split("|") %>
+				<% end %>
+				
+				<div class="post-time">
+					<% if post.unix_time != nil && !coords.nil? %>
+						Posted: <%= format_time(post.unix_time, coords[0], coords[1]) %>
+					<%elsif post.unix_time != nil %>
+						Posted <%= time_since(post.unix_time) %> ago
+					<% else %>
+						This user has no sense of time or place
+					<% end %>
+				</div>
+				<% unless post.ip.nil? %>
+					<% if post.ip == request.remote_ip %>
+						<div>This is YOU.</div>
+					<% else %>
+						<% unless coords.nil? || post.coord_lat.nil? || post.coord_long.nil? %>
+							<div class="post-distance"> Posting from <%= geo_distance(coords[0].to_f, coords[1].to_f, post.coord_lat, post.coord_long, 'mi') %> away</div>
+						<% end %>	
+					<% end %>
+				<% end %>
+			</div>
+		</div>
+		</div>
 	<% end %>
 	<%= render :partial => 'posts/new' %>
 </body>

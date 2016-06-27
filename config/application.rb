@@ -25,6 +25,8 @@ module Topik
 
 		Timezone::Lookup.config(:google) do |c|
 			c.api_key = 'AIzaSyDeKM74nqHTK7rW68Kqqe-1181AXosCifg'
+			c.open_timeout = 10
+			c.read_timeout = 10
 		end
   end
 end
