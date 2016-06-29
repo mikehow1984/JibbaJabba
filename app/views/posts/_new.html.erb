@@ -1,16 +1,10 @@
-<% unless defined?(@lat_lng) != nil %>
-	<script>
-		console.log(document.cookie);
-		if(document.cookie.indexOf('lat_lng=') == -1){
-			getGeoLocation();
-		}
-	</script>
-<% end %>
 <h1>New post</h1>
 <%= form_for([@topic, @post]) do |f| %>
 	<p>
 		<%= f.label :content %><br>
-		<%= f.text_area :content, :id => 'post-content-form', required: true %>
+		<%= f.text_area :content, :id => 'post-content-form', :class => 'post-form', required: true %>
+	</p>
+	<p>
 		<%= f.label "4MB file limit"  %>
 		<%= f.file_field :attach %>
 	</p>

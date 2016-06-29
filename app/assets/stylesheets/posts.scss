@@ -50,6 +50,9 @@ body{
 	vertical-align: top;
 	position: relative;
 	background-color: #AFFBFC;
+	-webkit-box-shadow: 3px 7px 11px 3px rgba(0,0,0,0.15);
+	-moz-box-shadow: 3px 7px 11px 3px rgba(0,0,0,0.15);
+	box-shadow: 3px 7px 11px 3px rgba(0,0,0,0.15);
 }
 
 .post-id{
@@ -85,6 +88,11 @@ body{
 	display: inline-block;
 }
 
+.post-form{
+	width: 70%;
+	height: 25vh;
+}
+
 .post-content a{
 	text-decoration: none;
 	font-weight: bold;
@@ -94,6 +102,7 @@ body{
 .post-id a{
 	text-decoration: none;
 }
+
 
 @media(max-width: 768px){
 	.post-topic{

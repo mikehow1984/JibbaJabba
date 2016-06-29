@@ -1,0 +1,23 @@
+
+
+
+.result-container{
+	background-color: #AFFBFC;
+	border: solid 1px #000;
+	overflow: hidden;
+	.result-wrapper{
+		margin: 1vw;
+		height: auto;
+		.post-thumb{
+			margin-bottom: 1vw;
+		}
+		.post-content{
+			font-style: italic;
+		}
+	}
+}
+.query-title{
+	a{text-decoration: none;}
+	font-size: 2em;
+	font-weight: bold;
+}
