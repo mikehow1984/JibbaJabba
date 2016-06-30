@@ -17,3 +17,14 @@
  // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
  //@import "bootstrap-sprockets";
 // @import "bootstrap";
+
+@import 'https://fonts.googleapis.com/css?family=Lalezar';
+
+header{
+	text-align: center;
+	a{text-decoration: none;}
+}
+.site-title{
+	font-family: 'Lalezar', cursive;
+	font-size: 4em;
+}
