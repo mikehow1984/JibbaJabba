@@ -2,11 +2,12 @@
 lock '3.5.0'
 
 set :application, 'JibbaJabba'
-set :repo_url, 'git@github.com:mikehow1984/JibbaJabba.git'
-set :deploy_to, "/JibbaJabba"
+set :repo_url, 'https://github.com/mikehow1984/JibbaJabba.git'
+set :deploy_to, "~/JibbaJabba"
 
-set :git
-set :branch, 'master'
+set :scm, 'git'
+set :scm_user, 'mikehow1984'
+set :branch, 'production'
 set :user, 'aintuane'
 
 set :use_sudo, false
