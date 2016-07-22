@@ -55,7 +55,7 @@ Rails.application.routes.draw do
   #   end
 
 	root "topics#index"
-
+	
 	resources :topics, only: [:new, :show, :create, :destroy] do
 		resources :posts, only: [:new, :create, :destroy]
 	end

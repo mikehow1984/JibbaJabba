@@ -1,11 +1,15 @@
 <body>
 
+<% if cookies().key?("lat_lng") %>
+	<% coords = cookies[:lat_lng].split("|") %>
+<% end %>
+				
 <div id='topic-title'><%= @topic.title =%></div>
 <div class='OG-post-container post-topic' id="TopicStarter">
 		<!--<%= link_to "Post in this Topik", new_topic_post_path(@topic, @post) %>-->
 		<div class="post-thumb">
 			<% unless @topic.attach.file.nil? %>
-				<%= link_to image_tag(@topic.attach.url(:thumb).to_s), @topic.attach.url %>
+				<%= link_to image_tag(@topic.attach_url(:thumb)), @topic.attach_url %>
 			<% end %>
 		</div>
 		<div class="right-post-container">
@@ -23,7 +27,7 @@
 				<% if @topic.ip == request.remote_ip %>
 					<div>This is YOU.</div>
 				<% else %>
-					<% unless coords.nil? || post.coord_lat.nil? || post.coord_long.nil? %>
+					<% unless coords.nil? || @topic.coord_lat.nil? || @topic.coord_long.nil? %>
 						<div id="post-distance"> Posting from <%= geo_distance(coords[0].to_f, coords[1].to_f, @topic.coord_lat, @topic.coord_long, 'mi') %> away</div>
 					<% end %>	
 				<% end %>
@@ -45,7 +49,7 @@
 		<div class="post-wrapper">	
 			<div class="post-thumb">
 			<% unless post.attach.file.nil? %>
-				<%= link_to image_tag(post.attach.url(:thumb).to_s), post.attach.url %>
+				<%= link_to image_tag(post.attach.url(:thumb)), post.attach.url %>
 			<% end %>
 			</div>
 
@@ -65,10 +69,7 @@
 				
 				</div>	
 				
-				<% if cookies().key?("lat_lng") %>
-					<% coords = cookies[:lat_lng].split("|") %>
-				<% end %>
-				
+
 				<div class="post-time">
 					<% if post.unix_time != nil && !coords.nil? %>
 						Posted: <%= format_time(post.unix_time, coords[0], coords[1]) %>
