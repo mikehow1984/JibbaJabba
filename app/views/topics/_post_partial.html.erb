@@ -1,0 +1,55 @@
+<!--<%= link_to "Post in this Topik", new_topic_post_path(@topic, @post) %>-->
+<% if is_firstpost %>
+	<div class='OG-post-container post-topic' id="TopicStarter">
+<% else %>
+	<div class='post-topic' id="<%= topicvar.id.to_s %>">
+<% end %>
+		<div class="post-wrapper">
+			<div class="post-thumb">
+				<% unless topicvar.attach.file.nil? %>
+					<%= link_to image_tag(topicvar.attach_url(:thumb)), topicvar.attach_url %>
+				<% end %>
+			</div>
+			<div class="right-post-container">
+				<% if is_firstpost %>
+					<div class="post-id" id="quoteTopicStarter">
+						<a href="#post-content-form">TopicStarter</a>
+					</div>
+				<% else %>
+					<div class="post-id" id="quote<%= topicvar.id %>">
+						<a href="#post-content-form">Poster No. <%= topicvar.id %></a>
+					</div>
+				<% end %>
+				<div class="post-content">	
+					<% text = post_linkifier(topicvar.content) %>
+					<% text.each do |piece| %>
+						<% if (piece =~ /<a href='#(\d+|TopicStarter)'>@(\d+|TopicStarter)<\/a>/).nil? && (piece =~ /<div class='quote'>/).nil? && (piece =~ /<\/div>/).nil? %>
+							<%= piece %>
+						<% else %>
+							<%= piece.html_safe %>
+						<% end %>
+					<% end %>
+				</div>
+
+					<div class="post-time">
+						<% if topicvar.unix_time != nil && !coords.nil? %>
+							Posted: <%= format_time(topicvar.unix_time, coords[0], coords[1]) %>
+						<%elsif topicvar.unix_time != nil %>
+							Posted <%= time_since(topicvar.unix_time) %> ago
+						<% else %>
+							This user has no sense of time or place
+						<% end %>
+					</div>
+
+				<% unless topicvar.ip.nil? %>
+					<% if topicvar.ip == request.remote_ip %>
+						<div>This is YOU.</div>
+					<% else %>
+						<% unless coords.nil? || topicvar.coord_lat.nil? || topicvar.coord_long.nil? %>
+							<div class="post-distance"> Posting from <%= geo_distance(coords[0].to_f, coords[1].to_f, topicvar.coord_lat, topicvar.coord_long, 'mi') %> away</div>
+						<% end %>
+					<% end %>
+				<% end %>
+			</div>
+		</div>
+	</div>
