@@ -1,1 +1,0 @@
-{"klass":"Taps::Pull","database_url":"postgres://f3:password@localhost/f3_development","remote_url":"http://user:password@localhost:5000","session_uri":"/sessions/6149145832","stream_state":{},"completed_tables":[],"table_filter":null,"remote_tables_info":{"schema_migrations":200,"topics":200,"posts":200}}
