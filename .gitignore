@@ -37,3 +37,8 @@ config/database.yml
 
 #ignore pull files
 pull_*.dat
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
