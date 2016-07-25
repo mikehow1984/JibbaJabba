@@ -18,7 +18,7 @@ gem 'coffee-rails', '~> 4.1.0'
 # gem 'therubyracer', platforms: :ruby
 
 gem 'puma'
-gem 'thread_safe', path: File.join(File.dirname(__FILE__), 'vendor', 'gems', 'thread_safe')
+gem 'thread_safe', '0.3.5', path: File.join(File.dirname(__FILE__), 'vendor', 'gems', 'thread_safe')
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
