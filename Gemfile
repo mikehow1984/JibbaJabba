@@ -18,7 +18,8 @@ gem 'coffee-rails', '~> 4.1.0'
 # gem 'therubyracer', platforms: :ruby
 
 gem 'puma'
-gem 'thread_safe', :git => 'https://github.com/ruby-concurrency/thread_safe.git'
+gem 'thread_safe', path: File.join(File.dirname(__FILE__), 'vendor', 'gems', 'thread_safe')
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
