@@ -36,9 +36,7 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'geokit', '~> 1.10.0'
 # Find user timezone
 gem 'timezone', '~> 1.0.0'
-# Search engine
-gem 'sunspot_rails'
-gem 'sunspot_solr'
+
 #image thumbnail generator
 gem 'mini_magick'
 #file upload size limiter
@@ -64,6 +62,9 @@ group :development, :test do
 
 	gem "rspec-rails", ">= 3.2.1"
 
+	# Search engine
+	gem 'sunspot_rails'
+	gem 'sunspot_solr'
 end
 
 group :development do
@@ -77,3 +78,6 @@ end
 group :test do
 	gem "capybara", "~> 2.4"
 end
+
+group :production do
+	gem 'cloudsearchable'
