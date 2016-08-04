@@ -80,6 +80,5 @@ group :test do
 	gem "capybara", "~> 2.4"
 end
 
-group :production do
-	gem 'aws-sdk'
-end
+gem 'aws-sdk'
+
