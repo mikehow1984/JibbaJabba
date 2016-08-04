@@ -19,7 +19,7 @@ gem 'coffee-rails', '~> 4.1.0'
 
 gem 'puma'
 gem 'tzinfo', :git => 'git://github.com/tzinfo/tzinfo.git'
-
+gem 'net-ssh'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -82,5 +82,4 @@ end
 
 group :production do
 	gem 'aws-sdk'
-	gem 'net-ssh'
 end
