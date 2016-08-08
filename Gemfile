@@ -17,7 +17,6 @@ gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
-gem 'puma'
 gem 'tzinfo', :git => 'git://github.com/tzinfo/tzinfo.git'
 gem 'net-ssh'
 
@@ -80,5 +79,7 @@ group :test do
 	gem "capybara", "~> 2.4"
 end
 
-gem 'aws-sdk'
-
+group :production do
+	gem 'puma'
+	gem 'aws-sdk'
+end
