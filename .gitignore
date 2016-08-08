@@ -42,3 +42,6 @@ pull_*.dat
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+#all yml config files
+*.yml
